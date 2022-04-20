@@ -20,9 +20,7 @@ public class Mathematical2 {
 
 	public void maxPrime(long n) {
 		String temp = n + "";
-		int len = temp.length();
 		char[] ch = temp.toCharArray();
-		long temp1 = 0;
 		Arrays.sort(ch);
 		temp = "";
 		for (int i = ch.length - 1; i >= 0; i--) {
@@ -89,17 +87,14 @@ public class Mathematical2 {
 
 		for (int dir = 0; dir < 8; dir++) {
 			int k, rd = row + x[dir], cd = col + y[dir];
-
 			int wordLen = grid.length;
-
 			for (k = 0; k < wordLen; k++) {
-
 				if (rd >= grid.length || rd < 0 || cd >= grid[0].length || cd < 0) {
 					break;
 				}
 
 				if (grid[rd][cd] != 0) {
-					temp1 = 0;
+
 					break;
 				}
 				rd += x[dir];
@@ -108,9 +103,6 @@ public class Mathematical2 {
 			}
 			temp += temp1;
 			temp1 = 0;
-			if (k == wordLen) {
-				return true;
-			}
 		}
 		return false;
 	}
@@ -164,23 +156,22 @@ public class Mathematical2 {
 //		return inp;
 //	}
 
-	int count = 0;
-
 	public int palindrome(int n) {
-		if (isPalindrome(count)) {
-			count++;
-		}
-
-		return 0;
+		int count = 0;
+		int val = 10;
+		return isPalindrome(n, count, val);
 	}
 
-	public boolean isPalindrome(int n) {
-		StringBuilder inp = new StringBuilder(n + "");
+	public int isPalindrome(int n, int count, int val) {
+		StringBuilder inp = new StringBuilder(val + "");
 		String temp = inp.toString();
-		if (temp.equals(inp.toString())) {
-			return true;
+		if (count == n) {
+			return --val;
 		}
-		return false;
+		if (temp.equals(inp.reverse().toString())) {
+			return isPalindrome(n, ++count, ++val);
+		}
+		return isPalindrome(n, count, ++val);
 	}
 
 	public static void main(String[] args) {
@@ -208,6 +199,10 @@ public class Mathematical2 {
 		case 6:
 			System.out.print(mObj.hexaToBinary("1AC5"));
 			break;
+		case 7:
+			System.out.print(mObj.palindrome(11));
+			break;
+
 		default:
 			break;
 		}
