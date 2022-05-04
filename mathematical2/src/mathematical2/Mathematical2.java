@@ -4,18 +4,47 @@ import java.util.*;
 
 public class Mathematical2 {
 
-	public void primeFactors(int n) {
-		int count = 0;
-		System.out.print(1);
-		for (int i = 1;; i++) {
-			if (i % 2 == 0 || i % 3 == 0 || i % 5 == 0) {
-				System.out.print(i);
-				count++;
-			}
-			if (count == n - 1) {
-				break;
-			}
+	public Long primeFactors(int n) {
+
+		TreeSet<Long> t = new TreeSet<>();
+		t.add(1L);
+		int i = 1;
+		while (i < n) {
+			long temp = t.pollFirst();
+			t.add(temp * 2);
+			t.add(temp * 3);
+			t.add(temp * 5);
+			i++;
 		}
+
+		return t.pollFirst();
+
+	}
+
+	static int monthDays[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	static int noOfDays(int d1, int m1, int y1, int d2, int m2, int y2) {
+		int n1 = y1 * 365 + d1;
+		for (int i = 0; i < m1 - 1; i++) {
+			n1 += monthDays[i];
+		}
+		n1 += countLeapYears(y1, m1);
+		int n2 = y2 * 365 + d2;
+		for (int i = 0; i < m2 - 1; i++) {
+			n2 += monthDays[i];
+		}
+		n2 += countLeapYears(y2, m2);
+
+		return Math.abs(n2 - n1);
+	}
+
+	static int countLeapYears(int y, int m) {
+		int years = y;
+
+		if (m <= 2) {
+			years--;
+		}
+		return years / 4 - years / 100 + years / 400;
 	}
 
 	public void maxPrime(long n) {
@@ -92,9 +121,7 @@ public class Mathematical2 {
 				if (rd >= grid.length || rd < 0 || cd >= grid[0].length || cd < 0) {
 					break;
 				}
-
 				if (grid[rd][cd] != 0) {
-
 					break;
 				}
 				rd += x[dir];
@@ -180,7 +207,7 @@ public class Mathematical2 {
 		int choice = scan.nextInt();
 		switch (choice) {
 		case 1:
-			mObj.primeFactors(11);
+			System.out.print(mObj.primeFactors(11));
 			break;
 		case 2:
 			mObj.removeDigits(3454);
